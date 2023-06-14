@@ -4,7 +4,6 @@ import axios from "axios";
 import { REQ_HEADER, ACCOUNTS_API, ACCOUNT_TYPES_API } from "./utils/constants";
 
 import UsersTable from "./components/UsersTable";
-import EmptyState from "./components/EmptyState";
 import MainTitle from "./components/MainTitle";
 import Loader from "./components/Loader";
 
@@ -24,23 +23,17 @@ const App = () => {
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
         setLoading(false);
       }
     };
 
     fetchData();
   }, []);
-
   return (
     <div className='App xl:container mx-auto my-5 px-3'>
       <MainTitle text={loading ? "Loading..." : "Accounts list"} />
-      {loading ? (
-        <Loader loading={loading} />
-      ) : accounts.length > 0 ? (
-        <UsersTable accountTypes={accountTypes} accounts={accounts} />
-      ) : (
-        <EmptyState />
-      )}
+      {loading ? <Loader loading={loading} /> : <UsersTable accountTypes={accountTypes} accounts={accounts} />}
     </div>
   );
 };

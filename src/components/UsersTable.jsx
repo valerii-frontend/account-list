@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import compareValues from "../utils/compare";
+import EmptyState from "./EmptyState";
 
 export default function UsersTable({ accounts, accountTypes }) {
   const [sortColumn, setSortColumn] = useState("");
@@ -34,7 +35,7 @@ export default function UsersTable({ accounts, accountTypes }) {
   }, []);
 
   const headStyles = "py-2 px-4 border-b cursor-pointer hover:bg-blue-200";
-  return (
+  return accounts.length > 0 ? (
     <div className='overflow-x-auto'>
       <table className='w-full border border-gray-200 min-w-[750px]'>
         <thead className='bg-blue-100'>
@@ -42,7 +43,7 @@ export default function UsersTable({ accounts, accountTypes }) {
             <th className={headStyles} onClick={handleSort("name")}>
               Name {sortColumn === "name" && (sortDirection === "asc" ? "▲" : "▼")}
             </th>
-            <th className={headStyles} onClick={handleSort("profitLoss")}>
+            <th className={headStyles} onClick={handleSort("profitLoss")} data-testid='profit'>
               Profit &amp; Loss {sortColumn === "profitLoss" && (sortDirection === "asc" ? "▲" : "▼")}
             </th>
             <th className={headStyles} onClick={handleSort("accountType")}>
@@ -63,5 +64,7 @@ export default function UsersTable({ accounts, accountTypes }) {
         </tbody>
       </table>
     </div>
+  ) : (
+    <EmptyState />
   );
 }
