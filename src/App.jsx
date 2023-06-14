@@ -32,8 +32,9 @@ const App = () => {
   }, []);
   return (
     <div className='App xl:container mx-auto my-5 px-3'>
-      <MainTitle text={loading ? "Loading..." : "Accounts list"} />
-      {loading ? <Loader loading={loading} /> : <UsersTable accountTypes={accountTypes} accounts={accounts} />}
+      <MainTitle loading={loading} />
+      {loading && <Loader loading={loading} />}
+      {!loading && <UsersTable accountTypes={accountTypes} accounts={accounts} />}
     </div>
   );
 };

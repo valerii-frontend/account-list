@@ -1,6 +1,6 @@
 import React from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
-import UsersTable from "./UsersTable";
+import { fireEvent, getByTestId, render, screen } from "@testing-library/react";
+import UsersTable from "../UsersTable";
 
 const mockAccounts = [
   { _id: 1, name: "User 1", profitLoss: 100, accountType: 1 },
